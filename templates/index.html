@@ -1,0 +1,214 @@
+{% load static %}
+{% static "images" as baseUrl %}    <!-- for images -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Person Classifier</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'styles/dropzone.min.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/app.css' %}">
+</head>
+
+<body>
+    <nav class="navbar navbar-light bg-light justify-content-center">
+        <p class="navbar-brand" style="font-size:30px; margin-top:20px; margin-bottom:30px"><strong>Sports Person Classifier</strong></p>
+    </nav>
+
+    <div class="container">
+        <div class="row">
+              <div class="col card-wrapper" data-player="lionel_messi">
+                <div class="card border-0">
+                    <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                        <img class="w-100 h-100" src="{% static 'images/messi.jpeg' %}" alt="Card image cap">
+                    </div>
+                    <div class="card-body text-center mt-4">
+                        <h4 class="text-uppercase card-title">Lionel Messi</h4>
+                    </div>
+                </div>
+            </div>
+            <div class="col card-wrapper" data-player="maria_sharapova">
+                    <div class="card border-0">
+                        <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                            <img class="w-100 h-100" src="{% static 'images/sharapova.jpg' %}" alt="Card image cap">
+                        </div>
+                        <div class="card-body text-center mt-4">
+                            <h4 class="text-uppercase card-title">Maria Sharapova</h4>
+                        </div>
+                    </div>
+            </div>
+            <div class="col card-wrapper" data-player="roger_federer">
+                    <div class="card border-0">
+                        <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                            <img class="w-100 h-100" src="{% static 'images/federer.jpeg' %}" alt="Card image cap">
+                        </div>
+                        <div class="card-body text-center mt-4">
+                            <h4 class="text-uppercase card-title">Roger Federer</h4>
+                        </div>
+                    </div>
+            </div>
+
+            <div class="col card-wrapper" data-player="serena_williams">
+                <div class="card border-0">
+                    <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                        <img class="w-100 h-100" src="{% static 'images/serena.jpeg' %}" alt="Card image cap">
+                    </div>
+                    <div class="card-body text-center mt-4">
+                        <h4 class="text-uppercase card-title">Serena Williams</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col card-wrapper" data-player="virat_kohli">
+                <div class="card border-0">
+                    <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                        <img class="w-100 h-100" src="{% static 'images/virat.jpeg' %}" alt="Card image cap">
+                    </div>
+                    <div class="card-body text-center mt-4">
+                        <h4 class="text-uppercase card-title">&nbsp;&nbsp;Virat &nbsp;&nbsp;Kohli</h4>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-sm-4" style="margin-top:35px">
+                <div class="row">
+                    <div class="col-12 mx-auto">
+                        <form method="post" action="uploadPic" enctype="multipart/form-data">
+                            {% csrf_token %}
+                             <input type="file" name="image" id="submitBtn" class="btn btn-success" accept="image/*" style="padding:75px 25px 75px 25px">
+                             <input type="submit" value="CLICK TO CLASSIFY YOUR SELECTED IMAGE" id="submitBtn" class="btn btn-success" style="margin-top:20px; padding:10px">
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-8 error" id="error" >
+
+            </div>
+
+            <div class="col-sm-4"  style="margin-top:30px">
+
+              {% if winner == "lionel_messi" %}
+                    <div class="col card-wrapper" data-player="lionel_messi">
+                      <div class="card border-0">
+                          <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                              <img class="w-100 h-100" src="{% static 'images/messi.jpeg' %}" alt="Card image cap">
+                          </div>
+                          <div class="">
+                              <h4 class="text-uppercase card-title" style="margin-left:80px; margin-top:20px">Lionel Messi</h4>
+                          </div>
+                      </div>
+                  </div>
+              {% elif winner == "maria_sharapova" %}
+                  <div class="col card-wrapper" data-player="maria_sharapova">
+                          <div class="card border-0">
+                              <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                                  <img class="w-100 h-100" src="{% static 'images/sharapova.jpg' %}" alt="Card image cap">
+                              </div>
+                              <div class="card-body text-center mt-4">
+                                  <h4 class="text-uppercase card-title">Maria Sharapova</h4>
+                              </div>
+                          </div>
+                  </div>
+              {% elif winner == "roger_federer" %}
+                  <div class="col card-wrapper" data-player="roger_federer">
+                          <div class="card border-0">
+                              <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                                  <img class="w-100 h-100" src="{% static 'images/federer.jpeg' %}" alt="Card image cap">
+                              </div>
+                              <div class="card-body text-center mt-4">
+                                  <h4 class="text-uppercase card-title">Roger Federer</h4>
+                              </div>
+                          </div>
+                  </div>
+              {% elif winner == "serena_williams" %}
+                  <div class="col card-wrapper" data-player="serena_williams">
+                      <div class="card border-0">
+                          <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                              <img class="w-100 h-100" src="{% static 'images/serena.jpeg' %}" alt="Card image cap">
+                          </div>
+                          <div class="card-body text-center mt-4">
+                              <h4 class="text-uppercase card-title">Serena Williams</h4>
+                          </div>
+                      </div>
+                  </div>
+              {% elif winner == "virat_kohli" %}
+                  <div class="col card-wrapper" data-player="virat_kohli">
+                      <div class="card border-0">
+                          <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                              <img class="w-100 h-100" src="{% static 'images/virat.jpeg' %}" alt="Card image cap">
+                          </div>
+                          <div class="card-body text-center mt-4">
+                              <h4 class="text-uppercase card-title" style="margin-top:-25px">Virat Kohli</h4>
+                          </div>
+                      </div>
+                  </div>
+              {% else %}
+                  <div class="col card-wrapper" data-player="virat_kohli">
+                      <div class="card border-0">
+                          <div class="position-relative rounded-circle overflow-hidden mx-auto custom-circle-image">
+                              <img class="w-100 h-100" src="{% static 'images/ballimages.jpg' %}" alt="Card image cap">
+                          </div>
+                          <div class="card-body text-center mt-4">
+                              <h4 class="text-uppercase card-title"></h4>
+                          </div>
+                      </div>
+                  </div>
+              {% endif %}
+
+
+            </div>
+            <div class="col-sm-4"  style="margin-top:30px">
+                <table id="classTable">
+                        <tr>
+                            <th>Player</th>
+                            <th style="padding:0px 0px 0px 20px">Probability Score</th>
+                        </tr>
+                        <tr>
+                            <td>Leonel Messi</td>
+                            <td id="score_lionel_messi" style="padding:0px 0px 0px 60px">{{messi}}&nbsp;{{perc}}</td>
+                        </tr>
+                        <tr>
+                            <td>Maria Sharapova</td>
+                            <td id="score_maria_sharapova" style="padding:0px 0px 0px 60px">{{maria}}&nbsp;{{perc}}</td>
+                        </tr>
+                        <tr>
+                            <td>Rodger Federer</td>
+                            <td id="score_roger_federer" style="padding:0px 0px 0px 60px">{{roger}}&nbsp;{{perc}}</td>
+                        </tr>
+                        <tr>
+                            <td>Serena Williams</td>
+                            <td id="score_serena_williams" style="padding:0px 0px 0px 60px">{{serena}}&nbsp;{{perc}}</td>
+                        </tr>
+                        <tr>
+                            <td>Virat Kohli</td>
+                            <td id="score_virat_kohli" style="padding:0px 0px 0px 60px">{{virat}}&nbsp;{{perc}}</td>
+                        </tr>
+                </table>
+            </div>
+
+        </div>
+
+        <div class="row">
+          {% for message in messages %}
+              <p style="color:red; margin-left:300px; margin-top:20px">{{message}}</p>
+          {% endfor %}
+        </div>
+
+    </div>
+
+</body>
+<!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+<script src="{% static 'js/dropzone.min.js' %}"></script>
+<script src="{% static 'js/app.js' %}"></script>
+</html>
