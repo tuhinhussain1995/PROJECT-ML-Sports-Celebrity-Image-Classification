@@ -3,6 +3,12 @@
 ### Here I have uploaded my Machine Learning Sports Celebrity Image Classification Project. If you want to practice it just download or clone the project. Thank you :)
 <br/>
 
+# This Project Video Link:
+
+https://www.linkedin.com/posts/tuhin95_machinelearning-opencv-svm-activity-6720280778032476160-j-HX
+<br/>
+#
+
 # Some User Interfaces of this Project:
 
 ## Welcome Page
